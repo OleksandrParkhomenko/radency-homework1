@@ -2,7 +2,7 @@ import 'package:todo/task.dart';
 
 class ToDoList {
   final name;
-  List<Task> tasks;
+  List<Task> tasks = <Task>[];
 
   ToDoList({this.name});
 
@@ -18,6 +18,7 @@ class ToDoList {
     newTask.id = id;
     newTask.name = name;
     newTask.category = category;
+    tasks.add(newTask);
   }
 
   void addFewTasks(List<Task> newTasks) {
@@ -35,8 +36,11 @@ class ToDoList {
   }
 
   Map<String, int> summary() {
-    Map<String, int> grouppedByCategory;
+    Map grouppedByCategory = <String, int>{};
     for (var task in tasks) {
+      if (!grouppedByCategory.containsKey(task.category)) {
+        grouppedByCategory[task.category] = 0;
+      }
       grouppedByCategory[task.category] += 1;
     }
     return grouppedByCategory;
